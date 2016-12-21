@@ -9,6 +9,10 @@ import java.net.UnknownHostException;
  * Created by Mark on 2016/12/20.
  */
 public class MyTransportClient {
+
+    /**
+     * 启动客户端
+     */
     private TransportClient transportClient;
     private static MyTransportClient clientInstance;
     private MyTransportClient() {
@@ -23,9 +27,6 @@ public class MyTransportClient {
             e.printStackTrace();
         }
     }
-    /*
-     * 单例
-     */
     public static MyTransportClient getInstance(){
         if(clientInstance==null){
             clientInstance = new MyTransportClient();

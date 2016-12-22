@@ -51,9 +51,35 @@ public class ElasticSearchHandler {
     public void searchWithCondtion(){
         SearchResponse searchResponse = client.prepareSearch(index)
                 .setTypes(type)
-                .setQuery(QueryBuilders.matchAllQuery()) //查询所有
-                //.setQuery(QueryBuilders.matchQuery("name", "tom").operator(Operator.AND)) //根据tom分词查询name,默认or
-                //.setQuery(QueryBuilders.multiMatchQuery("tom", "name", "age")) //指定查询的字段
+                //***********************查询所有******************************
+                //.setQuery(QueryBuilders.matchAllQuery())
+                //***********查询某个字段中是否包含自己所想要的信息***************
+                //.setQuery(QueryBuilders.matchQuery("title","简介"))
+                //***************查询多个字段中是否包含对应的信息****************
+                //.setQuery(QueryBuilders.multiMatchQuery("基本","content","title"))
+                //*********************邻近匹配********************************
+                //.setQuery(QueryBuilders.matchPhraseQuery("title","简介"))
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+                // ****************************
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+                //****************************
+
+
+
+
+                //
+               // .setQuery(QueryBuilders.matchAllQuery())
+               //.setQuery(QueryBuilders.matchQuery("name", "tom").operator(Operator.AND)) //根据tom分词查询name,默认or
+               // .setQuery(QueryBuilders.multiMatchQuery("tom", "name", "age")) //指定查询的字段
                 //.setQuery(QueryBuilders.queryString("name:to* AND age:[0 TO 19]")) //根据条件查询,支持通配符大于等于0小于等于19
                 //.setQuery(QueryBuilders.termQuery("name", "tom"))//查询时不分词
                 .setSearchType(SearchType.QUERY_THEN_FETCH)

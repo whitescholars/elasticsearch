@@ -1,15 +1,15 @@
-import java.util.List;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 /**
  * Created by Mark on 2016/12/20.
@@ -21,7 +21,6 @@ public class ElasticSearchHandler {
     //类型名称
     String type = "article";
     TransportClient client ;
-
     /**
      * 初始化客户端
      */

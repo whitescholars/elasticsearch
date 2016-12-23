@@ -2,6 +2,7 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.sort.SortOrder;
@@ -17,9 +18,9 @@ import java.util.List;
 public class ElasticSearchHandler {
 
     //索引库名
-    String index = "blog";
+    String index = "dec_v1.4";
     //类型名称
-    String type = "article";
+    String type = "book";
     TransportClient client ;
     /**
      * 初始化客户端
@@ -65,11 +66,16 @@ public class ElasticSearchHandler {
                 // 而matchPhrasePrefixQuery的text则无这一约束，你可以从一个英文单词中抽几个连接在一起的字母进行查询
                 //************************************************************
                 //.setQuery(QueryBuilders.matchPhrasePrefixQuery("title", "she"))
-                //****************************
-                
-                //****************************
-                //****************************
+                //*********************************************************
+                //.setQuery(QueryBuilders.disMaxQuery()
+                //        .add(QueryBuilders.termQuery("title", "sh"))
+                //        .add(QueryBuilders.termQuery("content", "什")))
+                //*********************指定type和id进行查询*****************
+                //.setQuery(QueryBuilders.idsQuery(type).ids("AVkpRPVGpo__GCi0PPMM", "AVkpRPS9po__GCi0PPML"))
+                //***********************模糊查询***************************
+                .setQuery(QueryBuilders.fuzzyQuery("content", "学习"))
                 // ****************************
+                // .setQuery(QueryBuilders.prefixQuery("content", "基本"))
                 //****************************
                 //****************************
                 //****************************

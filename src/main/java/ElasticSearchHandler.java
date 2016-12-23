@@ -57,9 +57,16 @@ public class ElasticSearchHandler {
                 //***************查询多个字段中是否包含对应的信息****************
                 //.setQuery(QueryBuilders.multiMatchQuery("基本","content","title"))
                 //*********************邻近匹配********************************
-                //.setQuery(QueryBuilders.matchPhraseQuery("title","简介"))
+                //.setQuery(QueryBuilders.matchPhraseQuery("title", "she"))
+                //************************************************************
+                // 如果你调用matchPhrasePrefixQuery时，text为中文
+                // 那么，很大可能是一种状况：你会发现，matchPhraseQuery和matchPhrasePrefixQuery没有任何差别。
+                // 而当text为英文时，差别就显现出来了：matchPhraseQuery的text是一个英文单词,
+                // 而matchPhrasePrefixQuery的text则无这一约束，你可以从一个英文单词中抽几个连接在一起的字母进行查询
+                //************************************************************
+                //.setQuery(QueryBuilders.matchPhrasePrefixQuery("title", "she"))
                 //****************************
-                //****************************
+                
                 //****************************
                 //****************************
                 // ****************************
@@ -71,11 +78,6 @@ public class ElasticSearchHandler {
                 //****************************
                 //****************************
                 //****************************
-
-
-
-
-                //
                // .setQuery(QueryBuilders.matchAllQuery())
                //.setQuery(QueryBuilders.matchQuery("name", "tom").operator(Operator.AND)) //根据tom分词查询name,默认or
                // .setQuery(QueryBuilders.multiMatchQuery("tom", "name", "age")) //指定查询的字段

@@ -17,12 +17,12 @@ public class MyTransportClient {
     private static MyTransportClient clientInstance;
     private MyTransportClient() {
         Settings settings = Settings.settingsBuilder()
-                .put("cluster.name","elasticsearch")//我的集群名
+                .put("cluster.name","my-application")//我的集群名
                 .put("client.transport.sniff",true)
                 .build();
         try {
             transportClient = TransportClient.builder().settings(settings).build()
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.1.9"), 9300));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

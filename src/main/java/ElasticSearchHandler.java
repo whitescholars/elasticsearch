@@ -5,7 +5,6 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.sort.SortOrder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +72,7 @@ public class ElasticSearchHandler {
                 //*********************指定type和id进行查询*****************
                 //.setQuery(QueryBuilders.idsQuery(type).ids("AVkpRPVGpo__GCi0PPMM", "AVkpRPS9po__GCi0PPML"))
                 //***********************模糊查询***************************
-                .setQuery(QueryBuilders.fuzzyQuery("content", "学习"))
+                .setQuery(QueryBuilders.fuzzyQuery("title", "介绍"))
                 // ****************************
                 // .setQuery(QueryBuilders.prefixQuery("content", "基本"))
                 //****************************
@@ -91,7 +90,7 @@ public class ElasticSearchHandler {
                 //.setQuery(QueryBuilders.termQuery("name", "tom"))//查询时不分词
                 .setSearchType(SearchType.QUERY_THEN_FETCH)
                 .setFrom(0).setSize(10)//分页
-                .addSort("id", SortOrder.DESC)//排序
+               /* .addSort("id", SortOrder.DESC)//排序*/
                 .get();
         SearchHits hits = searchResponse.getHits();
         long total = hits.getTotalHits();

@@ -2,9 +2,9 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.sort.SortOrder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ElasticSearchHandler {
 
     //索引库名
-    String index = "dec_v1.4";
+    String index = "dec_v1.3";
     //类型名称
     String type = "book";
     TransportClient client ;
@@ -72,25 +72,26 @@ public class ElasticSearchHandler {
                 //*********************指定type和id进行查询*****************
                 //.setQuery(QueryBuilders.idsQuery(type).ids("AVkpRPVGpo__GCi0PPMM", "AVkpRPS9po__GCi0PPML"))
                 //***********************模糊查询***************************
-                .setQuery(QueryBuilders.fuzzyQuery("title", "介绍"))
-                // ****************************
+                //.setQuery(QueryBuilders.fuzzyQuery("title", "介绍"))
+                // **********************前缀查询***************************
                 // .setQuery(QueryBuilders.prefixQuery("content", "基本"))
+                //*************查询一个文档的范围,判断是否包含上下界***********
+                //.setQuery(QueryBuilders.rangeQuery("sum").from(20).to(30).includeLower(true).includeUpper(false))
+                //**********************通配符查询**************************
+                //.setQuery(QueryBuilders.wildcardQuery("title", "*基本*"))
+                //************************全文检索**************************
+                //.setQuery(QueryBuilders.queryStringQuery("ssh or shell"))
+                //***/must-->and/mustNot-->or/should-->包含should的内容分数会更高 ***
+                // .setQuery(QueryBuilders.boolQuery()
+                                //.must(QueryBuilders.termQuery("title","介绍"))
+                               // .should(QueryBuilders.termQuery("content", "意义"))
+                //)
+                //**************全文检测 比queryStringQuery更健壮**************
+                //.setQuery(QueryBuilders.simpleQueryStringQuery("ssh shell"))
                 //****************************
-                //****************************
-                //****************************
-                //****************************
-                //****************************
-                //****************************
-                //****************************
-                //****************************
-               // .setQuery(QueryBuilders.matchAllQuery())
-               //.setQuery(QueryBuilders.matchQuery("name", "tom").operator(Operator.AND)) //根据tom分词查询name,默认or
-               // .setQuery(QueryBuilders.multiMatchQuery("tom", "name", "age")) //指定查询的字段
-                //.setQuery(QueryBuilders.queryString("name:to* AND age:[0 TO 19]")) //根据条件查询,支持通配符大于等于0小于等于19
-                //.setQuery(QueryBuilders.termQuery("name", "tom"))//查询时不分词
                 .setSearchType(SearchType.QUERY_THEN_FETCH)
                 .setFrom(0).setSize(10)//分页
-               /* .addSort("id", SortOrder.DESC)//排序*/
+                .addSort("id", SortOrder.DESC)//排序*/
                 .get();
         SearchHits hits = searchResponse.getHits();
         long total = hits.getTotalHits();
